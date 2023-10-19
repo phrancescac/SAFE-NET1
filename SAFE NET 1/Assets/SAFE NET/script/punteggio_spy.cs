@@ -3,109 +3,106 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class punteggio_spy : MonoBehaviour
 {
- 
     public Text scoreText;
-    static private int score=0;
     public Text tentativoText;
-    private int tentativi=0;
-     public bool cliccato=false;
-     public bool cliccato1=false;
-     public bool cliccato2=false;
+    private int tentativi = 0;
 
-    static public int punteggioTot=0;
-    public Text puntTotText; 
+    private bool cliccato = false;
+    private bool cliccato1 = false;
+    private bool cliccato2 = false;
 
-   
-    public void bt_giusto(){
-        
-        if(!cliccato){
+    static private int score = 0;
+    static public int punteggioTot = 0;
+
+    public Text puntTotText;
+
+    public void Start()
+    {
+        // Azzera il punteggio individuale all'inizio del gioco
+        score = 0;
+        // Azzera i tentativi all'inizio del gioco
+        tentativi = 0;
+        tentativoText.text = tentativi.ToString();
+    }
+
+    public void bt_giusto()
+    {
+        if (!cliccato)
+        {
             score++;
-            scoreText.text=score.ToString();
-            cliccato=true;
+            scoreText.text = score.ToString();
+            cliccato = true;
             punteggioTot++;
-        }else if(cliccato==false){
+        }
+        else
+        {
             Debug.Log("Hai già scovato l'hacker in questa finestra.");
         }
-       
-        tentativi++;
-        tentativoText.text=tentativi.ToString();
-        
-        
-        /*if(score==3){
-            SceneManager.LoadScene("victory_spyware");
-        }*/
-        score=0;
-       
-       caricaScena();
 
-        
+        tentativi++;
+        tentativoText.text = tentativi.ToString();
+        caricaScena();
     }
-    public void bt_giusto1(){
-        
-        if(!cliccato1){
+
+    public void bt_giusto1()
+    {
+        if (!cliccato1)
+        {
             score++;
-            scoreText.text=score.ToString();
-            cliccato1=true;
+            scoreText.text = score.ToString();
+            cliccato1 = true;
             punteggioTot++;
-        }else if(cliccato1==false){
+        }
+        else
+        {
             Debug.Log("Hai già scovato l'hacker in questa finestra.");
         }
+
         tentativi++;
-        tentativoText.text=tentativi.ToString();
-        
-        /* if(score==3){
-            SceneManager.LoadScene("victory_spyware");
-        }*/
-        score=0;
-       caricaScena();
-     
-
-        
+        tentativoText.text = tentativi.ToString();
+        caricaScena();
     }
-        public void bt_giusto2(){
-        
-        if(!cliccato2){
-            score++;
-            scoreText.text=score.ToString();
-            cliccato2=true;
-            punteggioTot++;
 
-        }else if(cliccato2==false){
+    public void bt_giusto2()
+    {
+        if (!cliccato2)
+        {
+            score++;
+            scoreText.text = score.ToString();
+            cliccato2 = true;
+            punteggioTot++;
+        }
+        else
+        {
             Debug.Log("Hai già scovato l'hacker in questa finestra.");
         }
-        tentativi++;
-        tentativoText.text=tentativi.ToString();
-        score=0;
-        
-          
-        /* if(score==3){
-            SceneManager.LoadScene("victory_spyware");
 
-        }*/   
-       caricaScena();
-       
+        tentativi++;
+        tentativoText.text = tentativi.ToString();
+        caricaScena();
     }
 
-    public void caricaScena(){
-
-        
-        if (score>=3){
-            SceneManager.LoadScene("victory_spyware");
-            scoreText.text=score.ToString();
-        }
-    }
-
-
-    public void bt_sbagliato(){
+    public void bt_sbagliato()
+    {
         tentativi++;
-        tentativoText.text=tentativi.ToString();
-        
-        if(tentativi>=4){
+        tentativoText.text = tentativi.ToString();
+
+        if (tentativi >= 4)
+        {
+            // Se il numero di tentativi supera o è uguale a 4, carica la scena di game over
             SceneManager.LoadScene("gameover_spyware");
         }
-        score=0;
     }
 
+    public void caricaScena()
+    {
+        if (score >= 3)
+        {
+            // Quando il punteggio raggiunge 3, carica la scena di vittoria
+            SceneManager.LoadScene("victory_spyware");
+        }
+    }
 }
